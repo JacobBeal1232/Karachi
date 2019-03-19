@@ -3,7 +3,7 @@
 #   Packages and modules;
 #
 require statsParser;
-require dataComparison;
+#require dataComparison;
 require dataFormat;
 use strict;
 use warnings;
@@ -42,8 +42,8 @@ use fileReader;
 fileReader(@productName, @averageCost, @provinceName, @monthType, 1); #1 indicates file 1, 2 file 2, 3 file 3, and 4 file 4
 print "Data succesfully processed.\n";
 #comparator file that sorts the data
-use dataCompare;
-dataCompare(@productName, @averageCost, @provinceName, @monthType, 1);
+#use dataCompare;
+#dataCompare(@productName, @averageCost, @provinceName, @monthType, 1);
 #export to R
 use rConverter;
 rConverter(@productName, @averageCost, @provinceName, @monthType, 1);
