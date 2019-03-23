@@ -68,13 +68,14 @@ elsif ($response == 2)
 		chomp ($response = <>);
 	} while ($response < 1 | $response > 10);
 	my $filename = '/lib/priceindex2.csv'; #look for the correct filename
-	if (-e $filename) #check if the file exists
+	my $filename2 = 'lib/census.csv';
+	if (-e $filename & -e $filename2) #check if the file exists
     {
 		graph2($response);
 	}
 	else
 	{
-		print "Couldn't find the file - try preprocessing for question 2 in the preprocessing folder, and then dropping the produced file 'priceindex2.csv' into the lib folder";
+		print "Couldn't find the file - try preprocessing for question 2 in the preprocessing folder, and then dropping the produced files 'priceindex2.csv' and 'census.csv' into the lib folder";
 	}
 }
 elsif ($response == 3)
