@@ -56,8 +56,8 @@ foreach my $recordList ( @records ) {
         warn "Line/record could not be parsed: $records[$recordCount]\n";
     }
 }
-open (my $fileh, ">plot1.csv") or die "$!";
-
+open (my $fileh, ">plot1.txt") or die "$!";
+print $fileh "Month,"."Category,"."CPI"."\n";
 #add up all CPI values
 for(my $k = 0; $k<=$recordCount; $k++){
 	for (my $n = 0; $n<12; $n++) {
@@ -153,12 +153,13 @@ for(my $k = 0; $k<=$recordCount; $k++){
 }
 #divide by total years to get average per month
 for(my $m = 1; $m < 23; $m++){
-	$total[$m] = $total[$m]/(2018-1985+1);
+  $total[$m] = $total[$m]/(2018-1985+1);
+  $total[$m] =~ s/\.\d+$//;
 }
 #print info to file for plotting
 for my $j (1..12){
 	for my $p (1..22) {
-			print $fileh "$product[$p]".","."$refMonth[$j]".","."$total[$p]".","."\n";
+			print $fileh "$refMonth[$p]".","."$total[$j]".","."$product[$p]"."\n";
 			}
 	}
     close ($fileh);
@@ -173,10 +174,10 @@ $R->run(qq`pdf("Question1Plot.pdf" , paper="letter")`);
 $R->run(q`library(ggplot2)`);
 
 # read in data from a CSV file
-$R->run(qq`data <- read.csv("plot1.csv")`);
+$R->run(qq`data <- read.csv("plot1.txt")`);
 
 # plot the data as a line plot with each point outlined
-$R->run(q`ggplot(data, aes(x=Month, y=CPI, colour=Category, group=Category)) + geom_line() + geom_point(size=2) + labs(title = "Alcohol vs Education Monthly Trends", subtitle ="Average per Area 1985 - 2018 ") + ylab("CPI Value") + scale_x_continuous(breaks=c(0,1,2,3,4,5,6,7,8,9,10,11), labels=c("Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))`);
+$R->run(q`ggplot(data, aes(x=Month, y=CPI, colour=Category, group=Category)) + geom_line() + geom_point(size=2) + labs(title = "Alcohol vs Education Monthly Trends", subtitle ="Average per Area 1985 - 2018 ") + ylab("Average CPI Value") + scale_x_continuous(breaks=c(0,1,2,3,4,5,6,7,8,9,10,11), labels=c("Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))`);
 # close down the PDF device
 $R->run(q`dev.off()`);
 
