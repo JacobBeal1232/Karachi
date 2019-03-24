@@ -65,7 +65,7 @@ if($questionType == 1){
     {
       my @master_fields = $csv->fields();
       my @splitDate = split('-', $master_fields[0]);
-      if ($splitDate[0] > 1984)
+      if ($splitDate[0] > 1984 && $splitDate[0] < 2019)
       {
         if ($master_fields[1] eq "Canada" | $master_fields[1] eq "Newfoundland and Labrador" | $master_fields[1] eq "Prince Edward Island" | $master_fields[1] eq "Nova Scotia" | $master_fields[1] eq "New Brunswick" | $master_fields[1] eq "Quebec" | $master_fields[1] eq "Ontario" | $master_fields[1] eq "Manitoba" | $master_fields[1] eq "Saskatchewan" | $master_fields[1] eq "Alberta" | $master_fields[1] eq "British Columbia")
         {
@@ -154,7 +154,7 @@ elsif($questionType == 3)
     {
       my @master_fields = $csv->fields();
       my @splitDate = split('-', $master_fields[0]);
-      if ($splitDate[0] > 1969)
+      if ($splitDate[0] > 1969 && $splitDate[0] < 2019)
       {
         if ($master_fields[3] eq "Rented accommodation" | $master_fields[3] eq "Owned accommodation")
         {
@@ -265,7 +265,7 @@ elsif($questionType == 4)
     {
       my @master_fields = $csv->fields();
       my @splitDate = split('-', $master_fields[0]);
-      if ($splitDate[0] > 1987)
+      if ($splitDate[0] > 1987 && $splitDate[0] < 2019)
       {
         if ($master_fields[1] eq "Canada" | $master_fields[1] eq "Newfoundland and Labrador" | $master_fields[1] eq "Prince Edward Island" | $master_fields[1] eq "Nova Scotia" | $master_fields[1] eq "New Brunswick" | $master_fields[1] eq "Quebec" | $master_fields[1] eq "Ontario" | $master_fields[1] eq "Manitoba" | $master_fields[1] eq "Saskatchewan" | $master_fields[1] eq "Alberta" | $master_fields[1] eq "British Columbia")
         {
