@@ -63,18 +63,21 @@ if($questionType == 1){
   {
     if ( $csv->parse($cost_record) )
     {
-      my @master_fields = $csv->fields();
-      if ($master_fields[1] eq "Canada" | $master_fields[1] eq "Newfoundland and Labrador" | $master_fields[1] eq "Prince Edward Island" | $master_fields[1] eq "Nova Scotia" | $master_fields[1] eq "New Brunswick" | $master_fields[1] eq "Quebec" | $master_fields[1] eq "Ontario" | $master_fields[1] eq "Manitoba" | $master_fields[1] eq "Saskatchewan" | $master_fields[1] eq "Alberta" | $master_fields[1] eq "British Columbia")
+      my @splitDate = split('-', $master_fields[0]);
+      if ($splitDate[0] > 1984)
       {
-        if ($master_fields[3] eq "Alcoholic beverages" | $master_fields[3] eq "Education and reading")
+      my @master_fields = $csv->fields();
+        if ($master_fields[1] eq "Canada" | $master_fields[1] eq "Newfoundland and Labrador" | $master_fields[1] eq "Prince Edward Island" | $master_fields[1] eq "Nova Scotia" | $master_fields[1] eq "New Brunswick" | $master_fields[1] eq "Quebec" | $master_fields[1] eq "Ontario" | $master_fields[1] eq "Manitoba" | $master_fields[1] eq "Saskatchewan" | $master_fields[1] eq "Alberta" | $master_fields[1] eq "British Columbia")
         {
-          $record_count++;
-          my @splitDate = split('-', $master_fields[0]);
-          $productDate[$record_count] = $splitDate[1];
-          $productYear[$record_count] = $splitDate[0];
-          $productAreaType[$record_count] = $master_fields[1].": ".$master_fields[3];
-          $productAreaType[$record_count] =~ s/,//;
-          $productValue[$record_count] = $master_fields[10];
+          if ($master_fields[3] eq "Alcoholic beverages" | $master_fields[3] eq "Education and reading")
+          {
+            $record_count++;
+            $productDate[$record_count] = $splitDate[1];
+            $productYear[$record_count] = $splitDate[0];
+            $productAreaType[$record_count] = $master_fields[1].": ".$master_fields[3];
+            $productAreaType[$record_count] =~ s/,//;
+            $productValue[$record_count] = $master_fields[10];
+          }
         }
       }
     }
@@ -149,16 +152,19 @@ elsif($questionType == 3)
   {
     if ( $csv->parse($cost_record))
     {
-      my @master_fields = $csv->fields();
-      if ($master_fields[3] eq "Rented accommodation" | $master_fields[3] eq "Owned accommodation")
+      my @splitDate = split('-', $master_fields[0]);
+      if ($splitDate[0] > 1969)
       {
-        if ($master_fields[1] eq "Canada")
+        my @master_fields = $csv->fields();
+        if ($master_fields[3] eq "Rented accommodation" | $master_fields[3] eq "Owned accommodation")
         {
-          $record_count++;
-          my @splitDate = split('-', $master_fields[0]);
-          $productYear[$record_count] = $splitDate[0];
-          $productType[$record_count] = $master_fields[3];
-          $productValue[$record_count] = $master_fields[10];
+          if ($master_fields[1] eq "Canada")
+          {
+            $record_count++;
+            $productYear[$record_count] = $splitDate[0];
+            $productType[$record_count] = $master_fields[3];
+            $productValue[$record_count] = $master_fields[10];
+          }
         }
       }
     }
