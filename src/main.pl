@@ -42,12 +42,12 @@ $response  = 0;
 do
 {
 	print "Enter a number between 1 and 4.\n";
-    chomp ($response = <>);
-} while ($response < 1| $response > 4);
+    chomp ($response = <STDIN>);
+} while ($response < 1 || $response > 4);
 if ($response == 1)
 {
     print "This program takes in data from the Consumer Price Index and outputs the average cost of alcohol per month against the average cost of education per month.\n";
-	my $filename = '/lib/priceindex1.csv'; #look for the correct filename
+	my $filename = '../lib/priceIndex1.csv'; #look for the correct filename
 	if (-e $filename)
     {
 		graph1();
@@ -65,10 +65,10 @@ elsif ($response == 2)
 	do
 	{
 		print "Enter a number between 1 and 10.\n";
-		chomp ($response = <>);
-	} while ($response < 1 | $response > 10);
-	my $filename = '/lib/priceindex2.csv'; #look for the correct filename
-	my $filename2 = 'lib/census.csv';
+		chomp ($response = <STDIN>);
+	} while ($response < 1 || $response > 10);
+	my $filename = '../lib/priceIndex2.csv'; #look for the correct filename
+	my $filename2 = '../lib/censusData.csv';
 	if (-e $filename & -e $filename2) #check if the file exists
     {
 		graph2($response);
@@ -80,21 +80,21 @@ elsif ($response == 2)
 }
 elsif ($response == 3)
 {
-    print "This program takes in data from the Consumer Price Index, as well as a start and year end entered by you, and outputs the average rate of change between the cost of owning and renting a home.\n";
+    print "This program takes in data from the Consumer Price Index, as well as a start and year end entered by you, and outputs the average rate of change between the cost of owning and renting a home in Canada.\n";
 	print "Which year would you like to start at?\n";
 	my $startYear = 0;
 	do
 	{
 		print "Enter any year between 1970 and 2017.\n";
-		chomp ($startYear = <>);
-	} while ($startYear < 1969 | $startYear > 2017);
+		chomp ($startYear = <STDIN>);
+	} while ($startYear < 1970 || $startYear > 2017);
 	my $endYear = 0;
 	do
 	{
 		print "Enter any year between your start year of ".$startYear." and 2018.\n";
-		chomp ($endYear = <>);
-	} while ($endYear <= $startYear | $startYear > 2018);
-	my $filename = '/lib/priceindex3.csv'; #look for the correct filename
+		chomp ($endYear = <STDIN>);
+	} while ($endYear <= $startYear || $startYear > 2018);
+	my $filename = '../lib/priceIndex3.csv'; #look for the correct filename
 	if (-e $filename) #check if the file exists
     {
 		graph3($startYear $endYear);
@@ -111,9 +111,9 @@ elsif ($response == 4)
 	do
 	{
 		print "Enter a number between 1 and 16.\n";
-		chomp ($response = <>);
-	} while ($response < 1 | $response > 16);
-	my $filename = '/lib/priceindex4-'.$response; #look for the correct filename - include the product type
+		chomp ($response = <STDIN>);
+	} while ($response < 1 || $response > 16);
+	my $filename = '../lib/priceIndex4-'.$response; #look for the correct filename - include the product type
 	if (-e $filename) #check if the file exists
     {
 		graph4($response);
