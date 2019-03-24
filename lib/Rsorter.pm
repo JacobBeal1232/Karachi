@@ -60,7 +60,7 @@ open (my $fileh, ">plot1.txt") or die "$!";
 print $fileh "Category,"."Month,"."CPI"."\n";
 #add up all CPI values
 for(my $k = 0; $k<=$recordCount; $k++){
-	for (my $n = 0; $n<12; $n++) {
+	for (my $n = 1; $n<12; $n++) {
 		if (($refMonth[$k] == $n) && ($locationProductGroup[$k] eq 'Canada: Alcoholic beverages')){
 			$total[1] = $total[1] + $consumerPriceIndex[$k];
 			$product[1] = 'Canada: Alcoholic beverages';
@@ -154,7 +154,7 @@ for(my $k = 0; $k<=$recordCount; $k++){
 #divide by total years to get average per month
 for(my $m = 1; $m < 23; $m++){
   $total[$m] = $total[$m]/(2018-1985+1);
-  $total[$m] =~ s/\.\d+$//;
+  #$total[$m] =~ s/\.\d+$//;
 }
 #print info to file for plotting
 for my $j (1..12){
