@@ -1,0 +1,23 @@
+The preprocess.pl script is used to turn large CSVs collected from statsCan
+into small files usable by the main program.
+Instructions:
+1. Download the StatsCan CPI CSV from here:
+https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000413
+Select 'download options' and then 'CSV/Download entire table'
+
+2. (OPTIONAL) If answering question 2, download Canadian Census Data from here:
+https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/download-telecharger/comp/page_dl-tc.cfm?Lang=E
+Select 'Canada, provinces, territories, census divisions and census subdivisions/CSV/
+
+3. Drag the CSV you desire to have processed into the preprocessor folder
+
+4. Run preprocessor.pl in the following format:
+'perl preprocessor.pl <FILENAME.csv> <QUESTIONNUMBER>'
+for instance, if you wished to preprocess the CPI for question 1, you might enter
+'perl preprocessor.pl statsCPI.csv 1'
+
+5. Wait for your file to process - when it's done, it will appear in the same folder as the perl file with the format
+'priceIndex<Number>.csv', or in the case of the census data, 'censusData.csv'
+
+6. Drop the file into the 'lib' folder, and then run main.pl in the src folder
+
