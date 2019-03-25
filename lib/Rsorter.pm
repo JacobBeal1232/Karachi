@@ -10,7 +10,22 @@ use Statistics::R;
 use Exporter qw(import);
 
 our @EXPORT_OK = qw(graph1 graph2 graph3 graph4);
+#
+# Rsorter.pm
+#
+#   Authors: Alex Jetleb (1042992), Jacob Serafin(1071173), Jacob Beal(105704)
+#
+#   Project: Answers Demo
+#   Date of Last Update: March 25, 2019
+#
+#   Functional Summary
+#   Rsorter.pm answers questions asked in main.pl and outputs graphs to answer those questions
+#
 
+
+#
+#   Variables to be used
+#
 
 sub graph1
 {
@@ -43,7 +58,7 @@ sub graph1
   my $filename    = $EMPTY;
   my $csv     = Text::CSV->new({ sep_char => $COMMA });
 
-  $filename = '../lib/priceIndex1.csv';
+  $filename = '../lib/QuestionOne/priceIndex1.csv';
   open my $file, '<:encoding(UTF-8)', $filename
       or die "Unable to open file: $filename\n";
 
@@ -63,8 +78,7 @@ sub graph1
           warn "Line/record could not be parsed: $records[$recordCount]\n";
       }
   }
-  open (my $fileh, ">../bin/plot1.txt") or die "$!";
-  print $fileh "Category,"."Month,"."CPI"."\n";
+
   #add up all CPI values
   for(my $k = 0; $k<=$recordCount; $k++){
   	for (my $n = 1; $n<=12; $n++) {
@@ -178,7 +192,7 @@ sub graph1
         $count[21]++;
   			$product[22] = 'British Columbia: Education and reading';
   		}
-  }
+    }
   }
   for (my $i =0; $i<23;$i++)
   {
@@ -190,33 +204,102 @@ sub graph1
         $total[$j][$p] = $total[$j][$p]/$count[$p];
     }
   }
+  open ( my $fileh1, ">../bin/QuestionOne/plot1.txt") or die "$!";
+  open ( my $fileh2, ">../bin/QuestionOne/plot2.txt") or die "$!";
+  open ( my $fileh3, ">../bin/QuestionOne/plot3.txt") or die "$!";
+  open ( my $fileh4, ">../bin/QuestionOne/plot4.txt") or die "$!";
+  open ( my $fileh5, ">../bin/QuestionOne/plot5.txt") or die "$!";
+  open ( my $fileh6, ">../bin/QuestionOne/plot6.txt") or die "$!";
+  open ( my $fileh7, ">../bin/QuestionOne/plot7.txt") or die "$!";
+  open ( my $fileh8, ">../bin/QuestionOne/plot8.txt") or die "$!";
+  open ( my $fileh9, ">../bin/QuestionOne/plot9.txt") or die "$!";
+  open ( my $fileh10, ">../bin/QuestionOne/plot10.txt") or die "$!";
 
-  #print info to file for plotting
+
+
+    print $fileh1 ("Category,Month,CPI\n");
+    print $fileh2 ("Category,Month,CPI\n");
+    print $fileh3 ("Category,Month,CPI\n");
+    print $fileh4 ("Category,Month,CPI\n");
+    print $fileh5 ("Category,Month,CPI\n");
+    print $fileh6 ("Category,Month,CPI\n");
+    print $fileh7 ("Category,Month,CPI\n");
+    print $fileh8 ("Category,Month,CPI\n");
+    print $fileh9 ("Category,Month,CPI\n");
+    print $fileh10 ("Category,Month,CPI\n");
   for my $j (1..12){
-  	for my $p (0..21) {
-  			print $fileh "$product[$p+1],"."$j,"."$total[$j][$p]"."\n";
-  			}
-  	}
-      close ($fileh);
+    print $fileh1 ("$product[1],"."$j,"."$total[$j][0]"."\n");
+    print $fileh1 ("$product[2],"."$j,"."$total[$j][1]"."\n");
+    print $fileh2 ("$product[1],"."$j,"."$total[$j][0]"."\n");
+    print $fileh2 ("$product[2],"."$j,"."$total[$j][1]"."\n");
+    print $fileh3 ("$product[1],"."$j,"."$total[$j][0]"."\n");
+    print $fileh3 ("$product[2],"."$j,"."$total[$j][1]"."\n");
+    print $fileh4 ("$product[1],"."$j,"."$total[$j][0]"."\n");
+    print $fileh4 ("$product[2],"."$j,"."$total[$j][1]"."\n");
+    print $fileh5 ("$product[1],"."$j,"."$total[$j][0]"."\n");
+    print $fileh5 ("$product[2],"."$j,"."$total[$j][1]"."\n");
+    print $fileh6 ("$product[1],"."$j,"."$total[$j][0]"."\n");
+    print $fileh6 ("$product[2],"."$j,"."$total[$j][1]"."\n");
+    print $fileh7 ("$product[1],"."$j,"."$total[$j][0]"."\n");
+    print $fileh7 ("$product[2],"."$j,"."$total[$j][1]"."\n");
+    print $fileh8 ("$product[1],"."$j,"."$total[$j][0]"."\n");
+    print $fileh8 ("$product[2],"."$j,"."$total[$j][1]"."\n");
+    print $fileh9 ("$product[1],"."$j,"."$total[$j][0]"."\n");
+    print $fileh9 ("$product[2],"."$j,"."$total[$j][1]"."\n");
+    print $fileh10 ("$product[1],"."$j,"."$total[$j][0]"."\n");
+    print $fileh10 ("$product[2],"."$j,"."$total[$j][1]"."\n");
+    print $fileh1 ("$product[3],"."$j,"."$total[$j][2]"."\n");
+    print $fileh1 ("$product[4],"."$j,"."$total[$j][3]"."\n");
+    print $fileh2 ("$product[5],"."$j,"."$total[$j][4]"."\n");
+    print $fileh2 ("$product[6],"."$j,"."$total[$j][5]"."\n");
+    print $fileh3 ("$product[7],"."$j,"."$total[$j][6]"."\n");
+    print $fileh3 ("$product[8],"."$j,"."$total[$j][7]"."\n");
+    print $fileh4 ("$product[9],"."$j,"."$total[$j][8]"."\n");
+    print $fileh4 ("$product[10],"."$j,"."$total[$j][9]"."\n");
+    print $fileh5 ("$product[11],"."$j,"."$total[$j][10]"."\n");
+    print $fileh5 ("$product[12],"."$j,"."$total[$j][11]"."\n");
+    print $fileh6 ("$product[13],"."$j,"."$total[$j][12]"."\n");
+    print $fileh6 ("$product[14],"."$j,"."$total[$j][13]"."\n");
+    print $fileh7 ("$product[15],"."$j,"."$total[$j][14]"."\n");
+    print $fileh7 ("$product[16],"."$j,"."$total[$j][15]"."\n");
+    print $fileh8 ("$product[17],"."$j,"."$total[$j][16]"."\n");
+    print $fileh8 ("$product[18],"."$j,"."$total[$j][17]"."\n");
+    print $fileh9 ("$product[19],"."$j,"."$total[$j][18]"."\n");
+    print $fileh9 ("$product[20],"."$j,"."$total[$j][19]"."\n");
+    print $fileh10 ("$product[21],"."$j,"."$total[$j][20]"."\n");
+    print $fileh10 ("$product[22],"."$j,"."$total[$j][21]"."\n");
+
+  }
+  close($fileh1);
+  close($fileh2);
+  close($fileh3);
+  close($fileh4);
+  close($fileh5);
+  close($fileh6);
+  close($fileh7);
+  close($fileh8);
+  close($fileh9);
+  close($fileh10);
+
 
   # Create a communication bridge with R and start R
   my $R = Statistics::R->new();
-
   # Set up the PDF file for plots
-  $R->run(qq`pdf("../bin/Question1Plot.pdf", width=22, height =17 )`);
-  #
+  $R->run(qq`pdf("../bin/QuestionOne/Plots.pdf", width=22,height =17)`);
   # Load the plotting library
   $R->run(q`library(ggplot2)`);
-
   # read in data from a CSV file
-  $R->run(qq`data <- read.csv("../bin/plot1.txt")`);
+  for my $k (1..10){
+    $R->run(qq`data <- read.csv("../bin/QuestionOne/plot$k.txt")`);
+    # plot the data as a line plot with each point outlined
+    $R->run(q`ggplot(data, aes(x=Month, y=CPI, colour=Category, group=Category)) + geom_line() + geom_point(size=2) + labs(title = "Alcohol vs Education Monthly Trends", subtitle ="Average per Area 1985 - 2018 ") + ylab("Average CPI Value") + xlab("Month") + scale_x_continuous(breaks=c(0,1,2,3,4,5,6,7,8,9,10,11,12), labels=c("","Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))`);
+  }
 
-  # plot the data as a line plot with each point outlined
-  $R->run(q`ggplot(data, aes(x=Month, y=CPI, colour=Category, group=Category)) + geom_line() + geom_point(size=2) + labs(title = "Alcohol vs Education Monthly Trends", subtitle ="Average per Area 1985 - 2018 ") + ylab("Average CPI Value") + xlab("Month") + scale_x_continuous(breaks=c(0,1,2,3,4,5,6,7,8,9,10,11,12), labels=c("","Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"))`);
   # close down the PDF device
   $R->run(q`dev.off()`);
 
   $R->stop();
+
 } 1;
 
 sub graph2
@@ -236,7 +319,7 @@ sub graph2
 
   my $recordCount = 0;
 
-  $filename = '../lib/priceIndex2.csv';
+  $filename = '../lib/QuestionTwo/priceIndex2.csv';
   open my $file, '<:encoding(UTF-8)', $filename
       or die "Unable to open file: $filename\n";
 
@@ -256,9 +339,26 @@ sub graph2
           warn "Line/record could not be parsed: $records[$recordCount]\n";
       }
   }
-  open (my $fileh, ">../bin/plot2.txt")
+
+  open (my $fileh0, ">../bin/QuestionTwo/plot0.txt")
     or die "$!";
-  print $fileh "City,"."Year,"."CPI"."\n";
+    print $fileh0 "City,"."Year,"."CPI"."\n";
+  open (my $fileh1, ">../bin/QuestionTwo/plot1.txt")
+    or die "$!";
+    print $fileh1 "City,"."Year,"."CPI"."\n";
+  open (my $fileh2, ">../bin/QuestionTwo/plot2.txt")
+    or die "$!";
+    print $fileh2 "City,"."Year,"."CPI"."\n";
+  open (my $fileh3, ">../bin/QuestionTwo/plot3.txt")
+    or die "$!";
+    print $fileh3 "City,"."Year,"."CPI"."\n";
+  open (my $fileh4, ">../bin/QuestionTwo/plot4.txt")
+    or die "$!";
+    print $fileh4 "City,"."Year,"."CPI"."\n";
+  open (my $fileh5, ">../bin/QuestionTwo/plot5.txt")
+    or die "$!";
+    print $fileh5 "City,"."Year,"."CPI"."\n";
+
   my @averageToronto;
   my @averageVancouver;
   my @averageCalgary;
@@ -307,32 +407,39 @@ sub graph2
     $averageYellowknife[$currentYear] = $averageYellowknife[$currentYear]/12;
     $averageWhitehorse[$currentYear] = $averageWhitehorse[$currentYear]/12;
     my $printYear = $currentYear + 1991;
-    print $fileh "Toronto all goods,"."$printYear".","."$averageToronto[$currentYear]"."\n";
-    print $fileh "Vancouver all goods,"."$printYear".","."$averageVancouver[$currentYear]"."\n";
-    print $fileh "Calgary all goods,"."$printYear".","."$averageCalgary[$currentYear]"."\n";
-    print $fileh "Halifax all goods,"."$printYear".","."$averageHalifax[$currentYear]"."\n";
-    print $fileh "Yellowknife all goods,"."$printYear".","."$averageYellowknife[$currentYear]"."\n";
-    print $fileh "Whitehorse all goods,"."$printYear".","."$averageWhitehorse[$currentYear]"."\n";
+
+    print $fileh0 "Toronto all goods,"."$printYear".","."$averageToronto[$currentYear]"."\n";
+    print $fileh1 "Vancouver all goods,"."$printYear".","."$averageVancouver[$currentYear]"."\n";
+    print $fileh2 "Calgary all goods,"."$printYear".","."$averageCalgary[$currentYear]"."\n";
+    print $fileh3 "Halifax all goods,"."$printYear".","."$averageHalifax[$currentYear]"."\n";
+    print $fileh4 "Yellowknife all goods,"."$printYear".","."$averageYellowknife[$currentYear]"."\n";
+    print $fileh5 "Whitehorse all goods,"."$printYear".","."$averageWhitehorse[$currentYear]"."\n";
   }
-  close ($fileh);
+
+  close ($fileh0);
+  close ($fileh1);
+  close ($fileh2);
+  close ($fileh3);
+  close ($fileh4);
+  close ($fileh5);
+
+  my $w;
   # Create a communication bridge with R and start R
   my $R = Statistics::R->new();
-
   # Set up the PDF file for plots
-  $R->run(qq`pdf("../bin/Question2Plot.pdf", width=22, height =17 )`);
-
+  $R->run(qq`pdf("../bin/QuestionTwo/CityPlots.pdf", width=22, height =17 )`);
   # Load the plotting library
   $R->run(q`library(ggplot2)`);
-
   # read in data from a CSV file
-  $R->run(qq`data <- read.csv("../bin/plot2.txt")`);
-
+for ($w = 0; $w < 6; $w++){
+  $R->run(qq`data <- read.csv("../bin/QuestionTwo/plot$w.txt")`);
   # plot the data as a line plot with each point outlined
-  $R->run(q`ggplot(data, aes(x=Year, y=CPI, colour=City, group=City)) + geom_line() + geom_point(size=2) + labs(title = "Change in price of all goods over time", subtitle = "Cities 1991-2016") + ylab("Average CPI Value") + xlab("Year")`);
+  $R->run(q`ggplot(data, aes(x=Year, y=CPI, colour=City, group=City)) + geom_line() + geom_point(size=2) + labs(title = "Change in Price of all Goods over Time", subtitle = "Cities 1991-2016") + ylab("Average CPI Value") + xlab("Year")`);
+}
   # close down the PDF device
   $R->run(q`dev.off()`);
-
   $R->stop();
+
 } 1;
 
 sub graph3
@@ -354,7 +461,7 @@ sub graph3
 
   my $recordCount = 0;
 
-  $filename = '../lib/priceIndex3.csv';
+  $filename = '../lib/QuestionThree/priceIndex3.csv';
   open my $file, '<:encoding(UTF-8)', $filename
       or die "Unable to open file: $filename\n";
 
@@ -374,7 +481,7 @@ sub graph3
           warn "Line/record could not be parsed: $records[$recordCount]\n";
       }
   }
-  open (my $fileh, ">../bin/plot3.txt")
+  open (my $fileh, ">../bin/QuestionThree/plot3.txt")
     or die "$!";
   print $fileh "Category,"."Year,"."CPI"."\n";
 
@@ -407,16 +514,16 @@ sub graph3
   my $R = Statistics::R->new();
 
 # Set up the PDF file for plots
-  $R->run(qq`pdf("../bin/Question3Plot.pdf", width=22, height =17 )`);
+  $R->run(qq`pdf("../bin/QuestionThree/Question3Plot.pdf", width=22, height =17 )`);
 
 # Load the plotting library
   $R->run(q`library(ggplot2)`);
 
 # read in data from a CSV file
-  $R->run(qq`data <- read.csv("../bin/plot3.txt")`);
+  $R->run(qq`data <- read.csv("../bin/QuestionThree/plot3.txt")`);
 
   # plot the data as a line plot with each point outlined
-$R->run(q`ggplot(data, aes(x=Year, y=CPI, colour=Category, group=Category)) + geom_line() + geom_point(size=2) + labs(title = "Change between cost of owned and rented accommodation", subtitle ="Average for Canada 1985 - 2018 ") + ylab("Average CPI Value") + xlab("Year")`);
+$R->run(q`ggplot(data, aes(x=Year, y=CPI, colour=Category, group=Category)) + geom_line() + geom_point(size=2) + labs(title = "Change between Cost of Owned and Rented Accommodation", subtitle ="Average for Canada 1985 - 2018 ") + ylab("Average CPI Value") + xlab("Year")`);
   # close down the PDF device
 $R->run(q`dev.off()`);
 
@@ -482,7 +589,7 @@ sub graph4
   my $csv     = Text::CSV->new({ sep_char => $COMMA });
 
   my $recordCount = 0;
-  $filename = '../lib/priceIndex4-'.$productType.'.csv';
+  $filename = '../lib/QuestionFour/priceIndex4-'.$productType.'.csv';
   open my $file, '<:encoding(UTF-8)', $filename
       or die "Unable to open file: $filename\n";
   @records = <$file>;
@@ -492,7 +599,7 @@ sub graph4
   foreach my $recordList ( @records ) {
       if ( $csv->parse($recordList) ) {
           my @master_fields = $csv->fields();
-          if ($master_fields[1] eq " Canada" || $master_fields[1] eq " ".$provinceType)
+          if ($master_fields[1] eq "Canada" || $master_fields[1] eq $provinceType)
           {
             $yearRecord[$recordCount] = $master_fields[0];
             $regionRecord[$recordCount] = $master_fields[1];
@@ -503,7 +610,7 @@ sub graph4
           warn "Line/record could not be parsed: $records[$recordCount]\n";
       }
   }
-  open (my $fileh, ">../bin/plot4-".$productType.".txt")
+  open (my $fileh, ">../bin/QuestionFour/plot4-".$productType.".txt")
     or die "$!";
 
   print $fileh "Area,"."Year,"."CPI"."\n";
@@ -536,16 +643,16 @@ sub graph4
   my $R = Statistics::R->new();
 
   # Set up the PDF file for plots
-  $R->run(qq`pdf("../bin/Question4Plot.pdf", width=22, height =17 )`);
+  $R->run(qq`pdf("../bin/QuestionFour/Question4Plot.pdf", width=22, height =17 )`);
 
   # Load the plotting library
   $R->run(q`library(ggplot2)`);
 
   # read in data from a CSV file
-  $R->run(qq`data <- read.csv("../bin/plot4-$productType.txt")`);
+  $R->run(qq`data <- read.csv("../bin/QuestionFour/plot4-$productType.txt")`);
 
   # plot the data as a line plot with each point outlined
-  $R->run(q`ggplot(data, aes(x=Year, y=CPI, colour=Area, group=Area)) + geom_line() + geom_point(size=2) + labs(title = "Change in price of item over time", subtitle ="Average for Canada and selected Province 1988 - 2018 ") + ylab("Average CPI Value") + xlab("Year")`);
+  $R->run(q`ggplot(data, aes(x=Year, y=CPI, colour=Area, group=Area)) + geom_line() + geom_point(size=2) + labs(title = "Change in Price of Item over Time", subtitle ="Average for Canada and selected Province 1988 - 2018 ") + ylab("Average CPI Value") + xlab("Year")`);
   # close down the PDF device
   $R->run(q`dev.off()`);
 
