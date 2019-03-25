@@ -59,19 +59,12 @@ if ($response == 1)
 }
 elsif ($response == 2)
 {
-    print "This program takes in data from the Consumer Price Index and the Canadian Census, as well as a region entered by you, and outputs the change in cost of traditional and new communications systems over the period lasting from 1993-2018.\n";
-	print "Which region would you like to check?\n1. British Columbia\n2. Alberta\n3. Saskatchewan\n4. Manitoba\n5. Ontario\n6. Quebec\n7. Nova Scotia\n8. Newfoundland and Labrador\n9. New Brunswick\n10. Prince Edwards Island\n";
-	$response = 0;
-	do
-	{
-		print "Enter a number between 1 and 10.\n";
-		chomp ($response = <STDIN>);
-	} while ($response < 1 || $response > 10);
+    print "This program takes in data from the Consumer Price Index and the Canadian Census and outputs the change in cost of all products against change in population in Toronto, Vancouver, Halifax, Calgary, Yelloknife, and Whitehorse.\n";
 	my $filename = '../lib/priceIndex2.csv'; #look for the correct filename
-	my $filename2 = '../lib/censusData.csv';
-	if (-e $filename & -e $filename2) #check if the file exists
+	#my $filename2 = '../lib/censusData.csv';
+	if (-e $filename) #& -e $filename2) #check if the file exists
     {
-		#graph2($response);
+		graph2();
 	}
 	else
 	{
