@@ -71,7 +71,7 @@ elsif ($response == 2)
 	my $filename2 = '../lib/censusData.csv';
 	if (-e $filename & -e $filename2) #check if the file exists
     {
-		graph2($response);
+		#graph2($response);
 	}
 	else
 	{
@@ -80,7 +80,7 @@ elsif ($response == 2)
 }
 elsif ($response == 3)
 {
-    print "This program takes in data from the Consumer Price Index, as well as a start and year end entered by you, and outputs the average rate of change between the cost of owning and renting a home in Canada.\n";
+  print "This program takes in data from the Consumer Price Index, as well as a start and year end entered by you, and outputs the average rate of change between the cost of owning and renting a home in Canada.\n";
 	print "Which year would you like to start at?\n";
 	my $startYear = 0;
 	do
@@ -88,16 +88,18 @@ elsif ($response == 3)
 		print "Enter any year between 1970 and 2017.\n";
 		chomp ($startYear = <STDIN>);
 	} while ($startYear < 1970 || $startYear > 2017);
+	print "Which year would you like to end at?\n";
 	my $endYear = 0;
 	do
 	{
 		print "Enter any year between your start year of ".$startYear." and 2018.\n";
 		chomp ($endYear = <STDIN>);
 	} while ($endYear <= $startYear || $startYear > 2018);
+
 	my $filename = '../lib/priceIndex3.csv'; #look for the correct filename
 	if (-e $filename) #check if the file exists
-    {
-		graph3($startYear $endYear);
+  {
+		graph3($startYear,$endYear);
 	}
 	else
 	{
@@ -106,17 +108,24 @@ elsif ($response == 3)
 }
 elsif ($response == 4)
 {
-    print "This program takes in data from the Consumer Price Index, as well as a product category and Province entered by you, and outputs the Price Index value for that category in that province compared to the national average over the period lasting from 1988-2018.\n";
-	print "What product category would you like you check?\n1. Food		2. Household cleaning products\n3. Paper, plastic and aluminum foil supplies		4. Pet foods and supplies\n5. Seeds, plants and cut flowers		6. Household furnishing and equipment\n7. Cooking appliances		8. Clothing and Footwear\n9. Purchase and leasing of passenger vehicles		10. Health and personal care\n11. Sporting and exercise equipment		12. Toys, games, and hobby supplies\n13. Photographic equipment and supplies		14. Home entertainment equipment, parts and services\n15. Video and audio subscription services		16. Reading material\n";
+  print "This program takes in data from the Consumer Price Index, as well as a product category and Province entered by you, and outputs the Price Index value for that category in that province compared to the national average over the period lasting from 1988-2018.\n";
+	print "What product category would you like you check?\n1. Food\n2. Household cleaning products\n3. Paper, plastic and aluminum foil supplies\n4. Pet foods and supplies\n5. Seeds, plants and cut flowers\n6. Household furnishing and equipment\n7. Cooking appliances\n8. Clothing and Footwear\n9. Purchase and leasing of passenger vehicles\n10. Health and personal care\n11. Sporting and exercise equipment\n12. Toys, games, and hobby supplies\n13. Photographic equipment and supplies\n14. Home entertainment equipment, parts and services\n15. Video and audio subscription services\n16. Reading material\n";
 	do
 	{
 		print "Enter a number between 1 and 16.\n";
 		chomp ($response = <STDIN>);
 	} while ($response < 1 || $response > 16);
-	my $filename = '../lib/priceIndex4-'.$response; #look for the correct filename - include the product type
+	my $provinceChoice;
+	print "What province would you like to compare?\n";
+	do
+	{
+		print "1. British Columbia\n2. Alberta\n3. Saskatchewan\n4. Manitoba\n5. Ontario\n6. Quebec\n7. Newfoundland and Labrador\n8. Nova Scotia\n9. New Brunswick\n10. Prince Edward Island\n";
+		chomp ($provinceChoice = <STDIN>);
+	} while ($provinceChoice < 1 || $provinceChoice > 10);
+	my $filename = '../lib/priceIndex4-'.$response.".csv"; #look for the correct filename - include the product type
 	if (-e $filename) #check if the file exists
-    {
-		graph4($response);
+  {
+		graph4($response,$provinceChoice);
 	}
 	else
 	{
