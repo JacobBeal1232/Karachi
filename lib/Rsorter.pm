@@ -221,7 +221,118 @@ sub graph1
 
 sub graph2
 {
+  #open processed index and get average of all values
+  my $EMPTY = q{};
+  my $SPACE = q{ };
+  my $COMMA = q{,};
 
+  my @records;
+  my @yearRecord;
+  my @regionRecord;
+  my @indexRecord;
+
+  my $filename    = $EMPTY;
+  my $csv     = Text::CSV->new({ sep_char => $COMMA });
+
+  my $recordCount = 0;
+
+  $filename = '../lib/priceIndex2.csv';
+  open my $file, '<:encoding(UTF-8)', $filename
+      or die "Unable to open file: $filename\n";
+
+  @records = <$file>;
+
+  close $file
+      or die "Unable to close: $filename\n";
+
+  foreach my $recordList ( @records ) {
+      if ( $csv->parse($recordList) ) {
+          my @master_fields = $csv->fields();
+          $yearRecord[$recordCount] = $master_fields[0];
+          $regionRecord[$recordCount] = $master_fields[1];
+          $indexRecord[$recordCount] = $master_fields[2];
+          $recordCount++;
+      } else {
+          warn "Line/record could not be parsed: $records[$recordCount]\n";
+      }
+  }
+  open (my $fileh, ">../bin/plot2.txt")
+    or die "$!";
+  print $fileh "City,"."Year,"."CPI"."\n";
+  my @averageToronto;
+  my @averageVancouver;
+  my @averageCalgary;
+  my @averageHalifax;
+  my @averageYellowknife;
+  my @averageWhitehorse;
+  for(my $currentYear = 0; $currentYear < 25; $currentYear++) #for number of years
+  {
+    $averageToronto[$currentYear] = 0; #initialize
+    $averageVancouver[$currentYear] = 0;
+    $averageCalgary[$currentYear] = 0;
+    $averageHalifax[$currentYear] = 0;
+    $averageYellowknife[$currentYear] = 0;
+    $averageWhitehorse[$currentYear] = 0;
+    for (my $colCounter = 0; $colCounter < 72; $colCounter++)
+    {
+      if ($colCounter % 6 == 0)
+      {
+        $averageHalifax[$currentYear] = $averageHalifax[$currentYear] + $indexRecord[($currentYear*72)+$colCounter];
+      }
+      elsif ($colCounter % 6 == 1)
+      {
+        $averageToronto[$currentYear] = $averageToronto[$currentYear] + $indexRecord[($currentYear*72)+$colCounter];
+      }
+      elsif ($colCounter % 6 == 2)
+      {
+        $averageCalgary[$currentYear] = $averageCalgary[$currentYear] + $indexRecord[($currentYear*72)+$colCounter];
+      }
+      elsif ($colCounter % 6 == 3)
+      {
+        $averageVancouver[$currentYear] = $averageCalgary[$currentYear] + $indexRecord[($currentYear*72)+$colCounter];
+      }
+      elsif ($colCounter % 6 == 4)
+      {
+        $averageWhitehorse[$currentYear] = $averageCalgary[$currentYear] + $indexRecord[($currentYear*72)+$colCounter];
+      }
+      elsif ($colCounter % 6 == 5)
+      {
+        $averageYellowknife[$currentYear] = $averageCalgary[$currentYear] + $indexRecord[($currentYear*72)+$colCounter];
+      }
+    }
+    $averageToronto[$currentYear] = $averageToronto[$currentYear]/12;
+    $averageVancouver[$currentYear] = $averageVancouver[$currentYear]/12;
+    $averageCalgary[$currentYear] = $averageCalgary[$currentYear]/12;
+    $averageHalifax[$currentYear] = $averageHalifax[$currentYear]/12;
+    $averageYellowknife[$currentYear] = $averageYellowknife[$currentYear]/12;
+    $averageWhitehorse[$currentYear] = $averageWhitehorse[$currentYear]/12;
+    my $printYear = $currentYear + 1991;
+    print $fileh "Toronto all goods,"."$printYear".","."$averageToronto[$currentYear]"."\n";
+    print $fileh "Vancouver all goods,"."$printYear".","."$averageVancouver[$currentYear]"."\n";
+    print $fileh "Calgary all goods,"."$printYear".","."$averageCalgary[$currentYear]"."\n";
+    print $fileh "Halifax all goods,"."$printYear".","."$averageHalifax[$currentYear]"."\n";
+    print $fileh "Yellowknife all goods,"."$printYear".","."$averageYellowknife[$currentYear]"."\n";
+    print $fileh "Whitehorse all goods,"."$printYear".","."$averageWhitehorse[$currentYear]"."\n";
+  }
+  close ($fileh);
+  # Create a communication bridge with R and start R
+  my $R = Statistics::R->new();
+
+  # Set up the PDF file for plots
+  $R->run(qq`pdf("../bin/Question2Plot.pdf", width=22, height =17 )`);
+
+  # Load the plotting library
+  $R->run(q`library(ggplot2)`);
+
+  # read in data from a CSV file
+  $R->run(qq`data <- read.csv("../bin/plot2.txt")`);
+
+  # plot the data as a line plot with each point outlined
+  $R->run(q`ggplot(data, aes(x=Year, y=CPI, colour=City, group=City)) + geom_line() + geom_point(size=2) + labs(title = "Change in price of all goods over time", subtitle = "Cities 1991-2016") + ylab("Average CPI Value") + xlab("Year")`);
+  # close down the PDF device
+  $R->run(q`dev.off()`);
+
+  $R->stop();
 } 1;
 
 sub graph3
