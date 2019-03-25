@@ -177,7 +177,7 @@ elsif($questionType == 3)
     or die "$!";
   for my $j (1..$record_count)
   {
-    print $fh "$productYear[$j]".", "."$productType[$j]".", "."$productValue[$j]"."\n";
+    print $fh "$productYear[$j]".","."$productType[$j]".","."$productValue[$j]"."\n";
   }
   close ($fh);
 }
@@ -290,7 +290,7 @@ elsif($questionType == 4)
     or die "$!";
   for my $j (1..$record_count)
   {
-    print $fh "$productYear[$j]".", "."$productArea[$j]".", "."$productType[$j]".", "."$productValue[$j]"."\n";
+    print $fh "$productYear[$j]".","."$productArea[$j]".","."$productType[$j]".","."$productValue[$j]"."\n";
   }
   close ($fh);
 }
