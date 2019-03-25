@@ -9,7 +9,7 @@ use Text::CSV  1.32;   # We will be using the CSV module (version 1.32 or higher
                        # to parse each line
 #
 #       preProcess.pl
-#      Date of Last Update: March 18, 2019.
+#      Date of Last Update: March 24, 2019.
 
 #      Commandline Parameters: 1
 #         $ARGV[0] = file to process
@@ -94,7 +94,46 @@ if($questionType == 1){
   }
   close ($fh);
 }
-#elsif($questionType == 2){
+elsif($questionType == 2)
+{
+    my @productYear;
+    my @productArea;
+    my @productValue;
+    my $record_count = 0;
+    foreach my $cost_record (@records)
+    {
+        if ( $csv->parse($cost_record))
+        {
+            my @master_fields = $csv->fields();
+            my @splitDate = split('-', $master_fields[0]);
+            if ($splitDate[0] > 1990 && $splitDate[0] < 2017)
+            {
+                if ($master_fields[3] eq "All-items")
+                {
+                    if ($master_fields[1] eq "Toronto, Ontario" || $master_fields[1] eq "Vancouver, British Columbia" ||$master_fields[1] eq "Halifax, Nova Scotia" ||$master_fields[1] eq "Calgary, Alberta" ||$master_fields[1] eq "Whitehorse, Yukon" ||$master_fields[1] eq "Yellowknife, Northwest Territories")
+                    {
+                        $record_count++;
+                        $productYear[$record_count] = $splitDate[0];
+                        my @splitArea = split(',', $master_fields[1]);
+                        $productArea[$record_count] = $splitArea[0];
+                        $productValue[$record_count] = $master_fields[10];
+                    }
+                }
+            }
+        }
+        else
+        {
+            warn "Line/record could not be parsed: $records[$record_count]\n";
+        }
+    }
+    open (my $fh, ">priceIndex2.csv")
+    or die "$!";
+    for my $j (1..$record_count)
+    {
+        print $fh "$productYear[$j]".","."$productArea[$j]".","."$productValue[$j]"."\n";
+    }
+    close ($fh);
+}
 #    my @location;
 #    my @areaPopulation;
 #    foreach my $census_record ( @records ) {
